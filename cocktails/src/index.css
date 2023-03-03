@@ -5,6 +5,8 @@
 #sidebar {
     float: left;
     background: floralwhite;
+    padding: 5px;
+    margin: 5px;
     width: 20%;
     height: 100%;
     padding: 5px;
@@ -19,7 +21,9 @@
 #cocktails {
     float: left;
     background: dimgray;
-    width: auto;
+    padding: 5px;
+    margin: 5px;
+    width: 30%;
     height: 100%;
 }
 
@@ -44,7 +48,7 @@
 }
 
 #instructions {
-    float: right;
+    float: left;
     background: floralwhite;
     width: 35%;
     height: 100%;
