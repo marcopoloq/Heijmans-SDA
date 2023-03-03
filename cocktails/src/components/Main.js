@@ -1,7 +1,9 @@
 import React from "react";
 import Categories from "./Categories";
-import Cocktail from "./Cocktail";
 import Instructions from "./Instructions";
+import Cocktails from "./Cocktails";
+
+import "../index.css"
 
 class Main extends React.Component {
 
@@ -9,11 +11,10 @@ class Main extends React.Component {
         super(props);
         this.state = {
             categoriesLoaded: false,
-            cocktailsLoaded: true,
             alcoholic: true,
             non_alcoholic: true,
         };
-
+        this.id = "main";
     }
 
     componentDidMount() {
@@ -27,49 +28,27 @@ class Main extends React.Component {
             })
     }
 
-    generateCategories = () => this.state.categories.drinks.map((c, i) =>
-        <Categories value={c} setCategory={this.setCategory} key={i}/>
-    );
-
-    setCategory = (category) => {
-        this.setState(state => ({
-            cocktailsLoaded: false,
-            selected: category
-        }));
-    }
-
-    /* Get all of the cocktails of the selected category.
+    /*
+     * Functions in charge of changing the state of the website.
      */
-    populateCocktails() {
-        if (!this.state.cocktailsLoaded) {
-            fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${this.state.selected}`)
-                .then((res) => res.json())
-                .then((json) => {
-                    let temp = json;
-                    temp = temp.drinks.slice(0, 5);
-                    this.setState({
-                        cocktails: temp,
-                        cocktailsLoaded: true,
-                    });
-                })
-            return <div><h1> Please wait. </h1></div>;
-        } else {
-            return this.state.cocktails.filter(c => c.strDrinkThumb).map(c =>
-                <Cocktail name={c.strDrink} img={c.strDrinkThumb} id={c.idDrink} key={c.idDrink}
-                          alcoholic={this.state.alcoholic} non_alcoholic={this.state.non_alcoholic}
-                          setInstructions={this.setInstructions}/>);
-        }
-    }
+    // Update the state of the category.
+    setCategory = (category) => this.setState({category: category});
 
+    // Update the state of the instructions.
     setInstructions = (instructions) => this.setState({instructions: instructions});
+    // Update the state of the Alcoholic and Non-alcoholic checkboxes.
     checkAlc = (e) => this.setState({alcoholic: e.target.checked});
     checkNonAlc = (e) => this.setState({non_alcoholic: e.target.checked});
 
+    /*
+     * Rendering the website.
+     */
     render() {
         if (!this.state.categoriesLoaded)
-            return <div><h1> Please wait. </h1></div>;
-        else
-            return (<div className="main">
+            return <div className={this.id}><h1> Please wait. </h1></div>;
+
+        return (<div id={this.id}>
+            <div id="sidebar">
                 <div className="checkbox">
                     <label>
                         <input type="checkbox" onChange={this.checkAlc} checked={this.state.alcoholic} id="alc"/>
@@ -79,19 +58,18 @@ class Main extends React.Component {
                                id="non-alc"/>
                         Non-alcoholic</label>
                 </div>
-                <div className="sidebar">
-                    <ul>{this.generateCategories()}</ul>
-                </div>
-                {this.state.selected && (
-                    <div className="mainwindow">
-                        <ul>{this.populateCocktails()}</ul>
-                    </div>
-                )}
-                {this.state.instructions && (
-                    <Instructions data={this.state.instructions}/>
-                )}
-            </div>);
-
+                <Categories categories={this.state.categories} setCategory={this.setCategory}/>
+            </div>
+            { // Only load the cocktails if a category has been selected.
+                this.state.category && <Cocktails category={this.state.category}
+                                                  alcoholic={this.state.alcoholic}
+                                                  non_alcoholic={this.state.non_alcoholic}
+                                                  setInstructions={this.setInstructions}/>
+            }
+            { // Only load the instructions if a category has been selected.
+                this.state.instructions && <Instructions data={this.state.instructions}/>
+            }
+        </div>);
     }
 }
 

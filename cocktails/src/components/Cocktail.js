@@ -14,7 +14,6 @@ class Cocktail extends React.Component {
             .then((res) => res.json())
             .then((json) => {
                 json.drinks[0].loaded = true;
-                console.log(json.drinks[0])
                 this.setState(json.drinks[0]);
             });
     }
@@ -25,9 +24,12 @@ class Cocktail extends React.Component {
 
     render() {
         if (this.state.loaded &&
-            (this.props.alcoholic && this.state.strAlcoholic === "Alcoholic") ||
-            (this.props.non_alcoholic && this.state.strAlcoholic === "Non alcoholic"))
-            return <li onClick={this.showIngredients}><img src={this.props.img}/>{this.props.name}</li>;
+            ((this.props.alcoholic && this.state.strAlcoholic === "Alcoholic") || (this.props.non_alcoholic && this.state.strAlcoholic === "Non alcoholic")))
+            return <div id="cocktail">
+                <li onClick={this.showIngredients}>
+                    <label className="cocktailname">{this.props.name}</label>
+                    <img src={this.props.img} alt={this.props.name}/></li>
+            </div>;
         return <></>;
     }
 }

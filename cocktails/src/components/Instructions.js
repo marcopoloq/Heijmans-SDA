@@ -1,14 +1,9 @@
 import React from "react";
-import Categories from "./Categories";
 
 /*
  * Renders the instructions and ingredients needed for the selected drink.
  */
 class Instructions extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     // Return a list of all of the ingredients.
     showIngredients() {
         let res = []
@@ -22,8 +17,10 @@ class Instructions extends React.Component {
     }
 
     render() {
-        return <div className="Instructions">
+        return <div id="instructions">
+            <p>Instructions:</p>
             {this.props.data.strInstructions}
+            <p>Ingredients:</p>
             {this.showIngredients()}
         </div>
     }

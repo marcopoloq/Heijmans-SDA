@@ -1,0 +1,70 @@
+#main {
+    background: red;
+}
+
+#sidebar {
+    float: left;
+    background: floralwhite;
+    width: 20%;
+    height: 100%;
+    padding: 5px;
+    margin: 5px;
+    border: 1px solid black;
+}
+
+.categoryitem:hover {
+    background: lightgray;
+}
+
+#cocktails {
+    float: left;
+    background: dimgray;
+    width: auto;
+    height: 100%;
+}
+
+.cocktailname {
+    font-size: x-large;
+}
+
+.none {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#cocktail {
+    padding: 5px;
+    margin: 5px;
+    border: 1px solid black;
+}
+
+#cocktail:hover {
+    background: lightgray;
+}
+
+#instructions {
+    float: right;
+    background: floralwhite;
+    width: 35%;
+    height: 100%;
+    padding: 5px;
+    margin: 5px;
+    border: 1px solid black;
+}
+
+img {
+    width: 40%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+label {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+p {
+    font-size: x-large;
+}
